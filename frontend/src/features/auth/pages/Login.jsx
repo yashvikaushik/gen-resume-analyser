@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 import "./auth.form.scss";
+
 
 // SVG Icons matching the new cyan/teal mockup
 const LogoSquareIcon = ({ className }) => (
@@ -140,6 +142,9 @@ const ArrowRightIcon = ({ className }) => (
 );
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login, authActionLoading } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -161,7 +166,7 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -180,8 +185,16 @@ const Login = () => {
       return;
     }
 
-    // UI-only submission handling
-    console.log("Sign in form submitted (UI only):", formData);
+    // Call backend login via useAuth hook
+    const result = await login({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (result.success) {
+      // Navigate to homepage / dashboard upon successful login
+      navigate("/");
+    }
   };
 
   return (
@@ -329,6 +342,7 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleChange}
                     autoComplete="email"
+                    disabled={authActionLoading}
                     required
                   />
                 </div>
@@ -353,6 +367,7 @@ const Login = () => {
                     value={formData.password}
                     onChange={handleChange}
                     autoComplete="current-password"
+                    disabled={authActionLoading}
                     required
                   />
                   <button
@@ -360,6 +375,7 @@ const Login = () => {
                     className="toggle-password-btn"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Hide password" : "Show password"}
+                    disabled={authActionLoading}
                   >
                     {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                   </button>
@@ -379,9 +395,18 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <button type="submit" className="btn-submit">
-                <span>Sign in</span>
-                <ArrowRightIcon className="btn-arrow-icon" />
+              <button type="submit" className="btn-submit" disabled={authActionLoading}>
+                {authActionLoading ? (
+                  <>
+                    <div className="btn-spinner" aria-hidden="true" />
+                    <span>Signing in...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign in</span>
+                    <ArrowRightIcon className="btn-arrow-icon" />
+                  </>
+                )}
               </button>
 
               {/* Divider */}
