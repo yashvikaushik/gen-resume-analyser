@@ -1,8 +1,11 @@
 require("dotenv").config()
 const connectToDB=require("./src/config/databse")
 const app=require("./src/app")
+const invokeGeminiAI=require("./src/services/ai.service");
 
 connectToDB()
+
+invokeGeminiAI()
 
 const redis = require("./src/config/redis");
 
