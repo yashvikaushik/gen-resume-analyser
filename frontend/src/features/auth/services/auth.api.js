@@ -17,6 +17,16 @@ export async function login(data) {
     return response.data;
 }
 
+export async function googleLogin(data) {
+    const response = await api.post("/api/auth/google", { ...data, provider: "Google" });
+    return response.data;
+}
+
+export async function githubLogin(data) {
+    const response = await api.post("/api/auth/github", { ...data, provider: "GitHub" });
+    return response.data;
+}
+
 export async function logout() {
     const response = await api.get("/api/auth/logout");
     return response.data;

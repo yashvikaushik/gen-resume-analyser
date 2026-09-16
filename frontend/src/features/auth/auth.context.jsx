@@ -1,5 +1,14 @@
 import { createContext, useState, useEffect } from "react";
-import { login as loginApi, register as registerApi, logout as logoutApi, getMe as getMeApi } from "./services/auth.api";
+import { signInWithPopup } from "firebase/auth";
+import { getFirebaseAuth } from "../../config/firebase";
+import {
+    login as loginApi,
+    register as registerApi,
+    googleLogin as googleLoginApi,
+    githubLogin as githubLoginApi,
+    logout as logoutApi,
+    getMe as getMeApi
+} from "./services/auth.api";
 import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
@@ -59,6 +68,72 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const loginWithGoogle = async () => {
+        setAuthActionLoading(true);
+        try {
+            const { auth: firebaseAuth, googleProvider: provider } = getFirebaseAuth();
+            const firebaseResult = await signInWithPopup(firebaseAuth, provider);
+            const firebaseUser = firebaseResult.user;
+            const idToken = await firebaseUser.getIdToken();
+
+            const data = await googleLoginApi({
+                email: firebaseUser.email,
+                displayName: firebaseUser.displayName || "",
+                uid: firebaseUser.uid,
+                idToken
+            });
+
+            setUser(data.user);
+            toast.success(data.message || "Signed in with Google successfully!");
+            return { success: true, user: data.user };
+        } catch (error) {
+            console.error("Google Sign-In Error:", error);
+            const errorMessage =
+                error?.response?.data?.message ||
+                (error?.code === "auth/popup-closed-by-user"
+                    ? "Google sign-in popup was closed."
+                    : error?.message || "Google Sign-In failed");
+            toast.error(errorMessage);
+            return { success: false, error: errorMessage };
+        } finally {
+            setAuthActionLoading(false);
+        }
+    };
+
+    const loginWithGithub = async () => {
+        setAuthActionLoading(true);
+        try {
+            const { auth: firebaseAuth, githubProvider: provider } = getFirebaseAuth();
+            const firebaseResult = await signInWithPopup(firebaseAuth, provider);
+            const firebaseUser = firebaseResult.user;
+            const idToken = await firebaseUser.getIdToken();
+
+            const data = await githubLoginApi({
+                email: firebaseUser.email || `${firebaseUser.reloadUserInfo?.screenName || firebaseUser.uid}@github.user`,
+                displayName: firebaseUser.displayName || firebaseUser.reloadUserInfo?.screenName || "GitHub User",
+                uid: firebaseUser.uid,
+                idToken
+            });
+
+            setUser(data.user);
+            toast.success(data.message || "Signed in with GitHub successfully!");
+            return { success: true, user: data.user };
+        } catch (error) {
+            console.error("GitHub Sign-In Error:", error);
+            const errorMessage =
+                error?.response?.data?.message ||
+                (error?.code === "auth/popup-closed-by-user"
+                    ? "GitHub sign-in popup was closed."
+                    : error?.code === "auth/account-exists-with-different-credential"
+                    ? "An account already exists with the same email address using another sign-in method."
+                    : error?.message || "GitHub Sign-In failed");
+            toast.error(errorMessage);
+            return { success: false, error: errorMessage };
+        } finally {
+            setAuthActionLoading(false);
+        }
+    };
+
     const logout = async () => {
         setAuthActionLoading(true);
         try {
@@ -89,7 +164,20 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, setUser, loading, authActionLoading, login, register, logout, getMe }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                setUser,
+                loading,
+                authActionLoading,
+                login,
+                register,
+                loginWithGoogle,
+                loginWithGithub,
+                logout,
+                getMe
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
