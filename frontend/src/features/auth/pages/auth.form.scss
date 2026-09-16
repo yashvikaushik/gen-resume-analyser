@@ -1,10 +1,10 @@
-// Auth Pages Styling - Modern Dark Cyan / Teal Minimalist Glassmorphism
+// Auth Pages Styling - Clean Light Blue Theme Matching Inspiration Mockup
 
 .auth-page {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background-color: #06090e;
+  background-color: var(--bg-main, #F4F9FF);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,218 +12,20 @@
   padding: 2.5rem 1.5rem;
   box-sizing: border-box;
 
-  // Background Ambient Glows & Elements
-  .bg-glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(140px);
-    pointer-events: none;
-    z-index: 0;
-
-    &-top-left {
-      top: -15%;
-      left: -8%;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(6, 182, 212, 0) 70%);
-    }
-
-    &-center-right {
-      top: 15%;
-      right: -8%;
-      width: 580px;
-      height: 580px;
-      background: radial-gradient(circle, rgba(14, 116, 144, 0.14) 0%, rgba(56, 189, 248, 0.06) 45%, rgba(0, 0, 0, 0) 70%);
-    }
-
-    &-bottom-left {
-      bottom: -15%;
-      left: 5%;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(8, 145, 178, 0.15) 0%, rgba(2, 132, 199, 0.08) 45%, rgba(0, 0, 0, 0) 70%);
-    }
-  }
-
-  // Decorative Bottom Cyan Wave Ribbons with Glow Dots
   .bg-waves {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 65%;
-    max-width: 900px;
+    width: 100%;
     height: auto;
+    max-height: 380px;
     pointer-events: none;
-    z-index: 1;
-    opacity: 0.75;
+    z-index: 0;
   }
 
-  // Main Container
-  .auth-container {
+  .auth-card-wrapper {
     position: relative;
     z-index: 2;
-    width: 100%;
-    max-width: 1140px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.15fr 0.95fr;
-    gap: 4.5rem;
-    align-items: center;
-  }
-
-  // Left Column - Hero Showcase
-  .auth-hero {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
-
-    .brand-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 3.25rem;
-      text-decoration: none;
-      color: #ffffff;
-
-      .logo-icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        border: 2px solid #22d3ee;
-        box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
-        color: #22d3ee;
-      }
-
-      .brand-name {
-        font-size: 1.35rem;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        color: #ffffff;
-      }
-    }
-
-    .hero-tag-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 1.15rem;
-
-      .hero-tag {
-        font-size: 0.825rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #38bdf8;
-      }
-
-      .hero-tag-line {
-        display: inline-block;
-        width: 32px;
-        height: 2px;
-        background-color: #38bdf8;
-        border-radius: 2px;
-        opacity: 0.8;
-      }
-    }
-
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
-      color: #ffffff;
-
-      .gradient-doors,
-      .gradient-accent,
-      .gradient-here {
-        background: linear-gradient(110deg, #38bdf8 0%, #22d3ee 45%, #06b6d4 75%, #14b8a6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        display: inline-block;
-      }
-    }
-
-    .hero-description {
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: #94a3b8;
-      max-width: 440px;
-      margin-bottom: 2.75rem;
-      font-weight: 400;
-    }
-
-    .hero-features-wrapper {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 1.15rem;
-      max-width: 430px;
-
-      .feature-card {
-        display: flex;
-        align-items: center;
-        gap: 1.15rem;
-        padding: 0.95rem 1.25rem;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.04);
-          border-color: rgba(34, 211, 238, 0.3);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px -6px rgba(6, 182, 212, 0.18);
-        }
-
-        .feature-icon-box {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 42px;
-          height: 42px;
-          border-radius: 10px;
-          background: rgba(6, 182, 212, 0.08);
-          border: 1px solid rgba(6, 182, 212, 0.22);
-          color: #22d3ee;
-          flex-shrink: 0;
-
-          svg {
-            width: 20px;
-            height: 20px;
-          }
-        }
-
-        .feature-content {
-          display: flex;
-          flex-direction: column;
-          gap: 0.2rem;
-
-          .feature-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #f1f5f9;
-            letter-spacing: -0.01em;
-          }
-
-          .feature-text {
-            font-size: 0.825rem;
-            color: #8899a6;
-          }
-        }
-      }
-    }
-  }
-
-  // Right Column - Glassmorphic Sign In Card
-  .auth-card-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -232,88 +34,108 @@
   .auth-card {
     position: relative;
     width: 100%;
-    max-width: 470px;
-    background: rgba(12, 17, 24, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 440px;
+    background: var(--bg-card, #FFFFFF);
+    border: 1px solid var(--border-color, #DCE8F5);
     border-radius: 24px;
-    padding: 2.75rem 2.5rem;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
-                0 0 35px rgba(6, 182, 212, 0.05),
-                inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 20px 45px -10px rgba(37, 99, 235, 0.08), 0 0 1px 1px rgba(220, 232, 245, 0.8);
     display: flex;
     flex-direction: column;
-    transition: box-shadow 0.3s ease;
+
+    .auth-brand-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+
+      .brand-logo-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .brand-name-text {
+        font-size: 1.45rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+
+        .brand-hire {
+          color: var(--text-main, #0F172A);
+        }
+
+        .brand-path {
+          color: #0066FF;
+        }
+      }
+    }
 
     .card-header {
-      text-align: left;
-      margin-bottom: 2rem;
+      text-align: center;
+      margin-bottom: 1.75rem;
 
       .card-title {
-        font-size: 1.85rem;
-        font-weight: 700;
-        color: #ffffff;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--text-main, #0F172A);
         letter-spacing: -0.02em;
-        margin-bottom: 0.45rem;
+        margin-bottom: 0.35rem;
       }
 
       .card-subtitle {
-        font-size: 0.925rem;
-        color: #8899a6;
+        font-size: 0.9rem;
+        color: var(--text-secondary, #64748B);
         font-weight: 400;
       }
     }
 
-    // Form Elements
+    // Form
     .auth-form {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.15rem;
 
       .form-group {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
 
         .form-label {
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: #e2e8f0;
-          letter-spacing: -0.01em;
-          text-align: left;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--text-main, #0F172A);
         }
 
         .input-wrapper {
           position: relative;
           display: flex;
           align-items: center;
-          background: rgba(255, 255, 255, 0.025);
-          border: 1px solid rgba(255, 255, 255, 0.09);
+          background: var(--bg-card, #FFFFFF);
+          border: 1px solid var(--border-color, #DCE8F5);
           border-radius: 12px;
-          height: 48px;
-          padding: 0 1rem;
-          transition: all 0.25s ease;
+          height: 46px;
+          padding: 0 0.95rem;
+          transition: all 0.2s ease;
 
           &:hover {
-            border-color: rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.035);
+            border-color: var(--primary-blue, #2563EB);
           }
 
           &:focus-within {
-            border-color: #06b6d4;
-            background: rgba(255, 255, 255, 0.04);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18),
-                        0 0 20px rgba(6, 182, 212, 0.12);
+            border-color: var(--primary-blue, #2563EB);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
           }
 
           &.has-error {
-            border-color: #f43f5e;
-            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2);
+            border-color: var(--danger, #EF4444);
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
           }
 
           .input-icon-left {
-            color: #64748b;
+            color: var(--text-muted, #94A3B8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -332,13 +154,12 @@
             background: transparent;
             border: none;
             outline: none;
-            color: #ffffff;
-            font-size: 0.925rem;
+            color: var(--text-main, #0F172A);
+            font-size: 0.9rem;
             font-family: inherit;
 
             &::placeholder {
-              color: #475569;
-              font-weight: 400;
+              color: var(--text-muted, #94A3B8);
             }
           }
 
@@ -346,7 +167,7 @@
             background: transparent;
             border: none;
             outline: none;
-            color: #64748b;
+            color: var(--text-muted, #94A3B8);
             cursor: pointer;
             padding: 4px;
             display: flex;
@@ -356,7 +177,7 @@
             flex-shrink: 0;
 
             &:hover {
-              color: #22d3ee;
+              color: var(--text-main, #0F172A);
             }
 
             svg {
@@ -367,35 +188,33 @@
         }
 
         .error-message {
-          font-size: 0.8rem;
-          color: #fb7185;
-          margin-top: 0.25rem;
+          font-size: 0.775rem;
+          color: var(--danger, #EF4444);
+          margin-top: 0.15rem;
         }
 
         .form-helper-text {
-          font-size: 0.775rem;
-          color: #8899a6;
-          margin-top: 0.25rem;
-          line-height: 1.4;
+          font-size: 0.75rem;
+          color: var(--text-secondary, #64748B);
+          margin-top: 0.2rem;
         }
       }
 
       .forgot-password-row {
         display: flex;
         justify-content: flex-end;
-        margin-top: -0.35rem;
+        margin-top: -0.25rem;
 
         .forgot-link {
           font-size: 0.825rem;
-          font-weight: 500;
-          color: #38bdf8;
+          font-weight: 600;
+          color: var(--primary-blue, #2563EB);
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: color 0.2s ease;
 
           &:hover {
-            color: #22d3ee;
+            color: var(--primary-hover, #1D4ED8);
             text-decoration: underline;
-            text-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
           }
         }
       }
@@ -405,262 +224,147 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.65rem;
+        gap: 0.5rem;
         width: 100%;
-        height: 48px;
-        margin-top: 0.5rem;
+        height: 46px;
+        margin-top: 0.35rem;
         border: none;
         border-radius: 12px;
-        background: linear-gradient(90deg, #0e7490 0%, #0891b2 35%, #06b6d4 75%, #22d3ee 100%);
-        color: #ffffff;
-        font-size: 1rem;
-        font-weight: 600;
+        background: var(--primary-blue, #2563EB);
+        color: #FFFFFF;
+        font-size: 0.95rem;
+        font-weight: 700;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
 
         &:hover:not(:disabled) {
+          background: var(--primary-hover, #1D4ED8);
           transform: translateY(-1px);
-          box-shadow: 0 6px 28px rgba(6, 182, 212, 0.45);
-          filter: brightness(1.08);
+          box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
         }
 
         &:active:not(:disabled) {
           transform: translateY(0);
-          box-shadow: 0 2px 10px rgba(6, 182, 212, 0.25);
         }
 
         &:disabled {
-          opacity: 0.75;
+          opacity: 0.65;
           cursor: not-allowed;
-          filter: grayscale(0.2);
-          box-shadow: 0 2px 10px rgba(6, 182, 212, 0.15);
-        }
-
-        .btn-arrow-icon {
-          width: 18px;
-          height: 18px;
-          transition: transform 0.2s ease;
-        }
-
-        &:hover:not(:disabled) .btn-arrow-icon {
-          transform: translateX(3px);
+          box-shadow: none;
         }
 
         .btn-spinner {
-          width: 20px;
-          height: 20px;
-          border: 2.5px solid rgba(255, 255, 255, 0.25);
-          border-top-color: #ffffff;
+          width: 18px;
+          height: 18px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top-color: #FFFFFF;
           border-radius: 50%;
-          animation: spin-clockwise 0.75s linear infinite;
+          animation: spin 0.75s linear infinite;
         }
       }
 
-      @keyframes spin-clockwise {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       .auth-divider {
         display: flex;
         align-items: center;
-        margin: 0.5rem 0;
-        gap: 1rem;
+        margin: 0.4rem 0;
+        gap: 0.85rem;
 
         &::before,
         &::after {
           content: "";
           flex: 1;
           height: 1px;
-          background: rgba(255, 255, 255, 0.08);
+          background: var(--border-color, #DCE8F5);
         }
 
         span {
-          font-size: 0.825rem;
-          color: #64748b;
-          font-weight: 400;
-          white-space: nowrap;
+          font-size: 0.8rem;
+          color: var(--text-muted, #94A3B8);
+          font-weight: 500;
+          text-transform: lowercase;
         }
       }
 
       .social-buttons-container {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.65rem;
         width: 100%;
       }
 
-      .btn-social,
-      .btn-google,
-      .btn-github {
-        position: relative;
+      .btn-social {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 0.75rem;
         width: 100%;
-        height: 48px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        height: 44px;
+        border: 1px solid var(--border-color, #DCE8F5);
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.04);
-        color: #f1f5f9;
-        font-size: 0.95rem;
-        font-weight: 500;
+        background: var(--bg-card, #FFFFFF);
+        color: var(--text-main, #0F172A);
+        font-size: 0.9rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.2s ease;
 
         &:hover:not(:disabled) {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(34, 211, 238, 0.35);
-          box-shadow: 0 4px 20px -4px rgba(6, 182, 212, 0.25);
-          transform: translateY(-1px);
+          background: rgba(37, 99, 235, 0.08);
+          border-color: var(--primary-blue, #2563EB);
         }
 
         &:active:not(:disabled) {
-          transform: translateY(0);
+          background: rgba(37, 99, 235, 0.14);
         }
 
         &:disabled {
-          opacity: 0.6;
+          opacity: 0.5;
           cursor: not-allowed;
         }
 
-        .social-icon,
-        .google-icon,
-        .github-icon {
-          width: 20px;
-          height: 20px;
+        svg {
+          width: 18px;
+          height: 18px;
           flex-shrink: 0;
         }
       }
 
       .auth-footer {
         text-align: center;
-        font-size: 0.875rem;
-        color: #94a3b8;
+        font-size: 0.85rem;
+        color: var(--text-secondary, #64748B);
+        margin-top: 0.5rem;
 
         .create-account-link {
-          color: #38bdf8;
-          font-weight: 600;
+          color: var(--primary-blue, #2563EB);
+          font-weight: 700;
           text-decoration: none;
           margin-left: 0.35rem;
-          transition: all 0.2s ease;
+          transition: color 0.2s ease;
 
           &:hover {
-            color: #22d3ee;
+            color: var(--primary-hover, #1D4ED8);
             text-decoration: underline;
-            text-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
           }
         }
       }
     }
   }
+}
 
-  // Responsive Breakpoints
-  // Tablet Layout (max-width: 1024px)
-  @media (max-width: 1024px) {
-    padding: 2rem 1.25rem;
-
-    .auth-container {
-      gap: 2.5rem;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .auth-hero {
-      .hero-title {
-        font-size: 2.85rem;
-      }
-    }
-
-    .auth-card {
-      padding: 2.25rem 2rem;
-    }
-  }
-
-  // Mobile / Small Screen Layout (max-width: 860px)
-  @media (max-width: 860px) {
+@media (max-width: 480px) {
+  .auth-page {
     padding: 1.5rem 1rem;
-    align-items: flex-start;
-
-    .auth-container {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      margin-top: 1rem;
-    }
-
-    .auth-hero {
-      align-items: center;
-      text-align: center;
-
-      .brand-logo {
-        margin-bottom: 1.5rem;
-      }
-
-      .hero-tag-row {
-        justify-content: center;
-      }
-
-      .hero-title {
-        font-size: 2.4rem;
-      }
-
-      .hero-description {
-        margin-bottom: 1.75rem;
-      }
-
-      .hero-features-wrapper {
-        width: 100%;
-        max-width: 470px;
-        margin: 0 auto;
-
-        .feature-card {
-          text-align: left;
-        }
-      }
-    }
-
-    .auth-card-wrapper {
-      margin-bottom: 2rem;
-    }
 
     .auth-card {
       padding: 2rem 1.5rem;
-    }
-
-    .bg-waves {
-      width: 100%;
-      opacity: 0.4;
-    }
-  }
-
-  @media (max-width: 480px) {
-    padding: 1.25rem 0.75rem;
-
-    .auth-hero {
-      .hero-title {
-        font-size: 2rem;
-      }
-
-      .hero-features-wrapper .feature-card {
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-      }
-    }
-
-    .auth-card {
-      padding: 1.75rem 1.25rem;
       border-radius: 20px;
-
-      .card-header .card-title {
-        font-size: 1.6rem;
-      }
     }
   }
 }

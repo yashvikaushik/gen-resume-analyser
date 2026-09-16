@@ -17,12 +17,19 @@ const interviewReportSchema = z.object({
         }).describe("The behavioral question that can be asked in the interview with the intension of the interviewer and how to answer them")
     ),
 
-    skillGaps: z.array(
-        z.object({
-            skill: z.string().describe("The skill that the candidate should have and is lacking"),
-            severity: z.enum(["low", "medium", "high"]).describe("The severity of the skill gap")
-        }).describe("The skill that the candidate should have and is lacking")
+    skillGaps: z.array(z.object({
+    skill: z.string().describe(
+        "A specific skill or capability that is genuinely missing or insufficiently demonstrated"
     ),
+
+    severity: z.enum(["low", "medium", "high"]).describe(
+        "Severity based on how important the skill is for the job and how much evidence is missing"
+    ),
+
+    reason: z.string().describe(
+        "Explain why this is considered a gap by comparing the job requirement with evidence from the resume and self-description"
+    )
+})),
 
     preparationPlan: z.array(
         z.object({

@@ -1,44 +1,52 @@
+import React from "react";
 import { createBrowserRouter } from "react-router";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import Protected from "./features/auth/components/protected";
+import AppLayout from "./components/layout/AppLayout";
+import Dashboard from "./features/dashboard/Dashboard";
+import AnalyzeResume from "./features/interview/pages/AnalyzeResume";
+import ReportDetails from "./features/interview/pages/ReportDetails";
+import MyReports from "./features/interview/pages/MyReports";
+import ProfileSettings from "./features/auth/pages/ProfileSettings";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: (
-            <Protected>
-                <div style={{
-                    minHeight: "100vh",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "#06090e",
-                    color: "#ffffff",
-                    fontFamily: "sans-serif"
-                }}>
-                    <h1 style={{
-                        fontSize: "2.5rem",
-                        background: "linear-gradient(110deg, #38bdf8 0%, #22d3ee 50%, #14b8a6 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent"
-                    }}>
-                        Home Page
-                    </h1>
-                    <p style={{ color: "#94a3b8", marginTop: "1rem" }}>
-                        Welcome to GenResume!
-                    </p>
-                </div>
-            </Protected>
-        ),
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/register",
-        element: <Register />,
-    },
+  {
+    path: "/",
+    element: (
+      <Protected>
+        <AppLayout />
+      </Protected>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "analyze",
+        element: <AnalyzeResume />,
+      },
+      {
+        path: "reports",
+        element: <MyReports />,
+      },
+      {
+        path: "report/:id",
+        element: <ReportDetails />,
+      },
+      {
+        path: "settings",
+        element: <ProfileSettings />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
 ]);

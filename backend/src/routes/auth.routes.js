@@ -40,4 +40,11 @@ authRouter.get("/logout", authController.logoutUserController);
  */
 authRouter.get("/get-me", authMiddleware.authUser, authController.getMeController);
 
+/**
+ * @route PATCH /api/auth/profile
+ * @description update user profile (username)
+ * @access private
+ */
+authRouter.patch("/profile", authMiddleware.authUser, authController.updateProfileController);
+
 module.exports = authRouter;

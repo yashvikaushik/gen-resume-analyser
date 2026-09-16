@@ -226,11 +226,89 @@ async function getMeController(req, res) {
     }
 }
 
+async function updateProfileController(req, res) {
+    try {
+        const { username } = req.body;
+
+        if (!username || typeof username !== "string" || !username.trim()) {
+            return res.status(400).json({
+                message: "Username is required"
+            });
+        }
+
+        const trimmedUsername = username.trim();
+
+        if (trimmedUsername.length < 3 || trimmedUsername.length > 30) {
+            return res.status(400).json({
+                message: "Username must be between 3 and 30 characters"
+            });
+        }
+
+        const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
+        if (!usernameRegex.test(trimmedUsername)) {
+            return res.status(400).json({
+                message: "Username can only contain letters, numbers, underscores, dots, and hyphens"
+            });
+        }
+
+        // Check if another user already has this username (case-insensitive)
+        const existingUser = await userModel.findOne({
+            username: { $regex: new RegExp(`^${trimmedUsername}$`, "i") },
+            _id: { $ne: req.user.id }
+        });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: "Username is already taken"
+            });
+        }
+
+        // Update the user
+        const updatedUser = await userModel.findByIdAndUpdate(
+            req.user.id,
+            { username: trimmedUsername },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Issue a fresh JWT token with the new username
+        const token = jwt.sign(
+            { id: updatedUser._id, username: updatedUser.username },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        res.cookie("token", token);
+
+        return res.status(200).json({
+            message: "Profile updated successfully",
+            user: {
+                id: updatedUser._id,
+                username: updatedUser.username,
+                name: updatedUser.username,
+                email: updatedUser.email
+            }
+        });
+    } catch (error) {
+        console.error("Update profile error:", error);
+        return res.status(500).json({
+            message: "Failed to update profile",
+            error: error.message
+        });
+    }
+}
+
 module.exports = {
     registerUserController,
     loginUserController,
     googleAuthController: oauthAuthController,
     oauthAuthController,
     logoutUserController,
-    getMeController
+    getMeController,
+    updateProfileController
 };

@@ -8,13 +8,19 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 
-/*require all the routes here */
+/* Routes */
 const authRouter = require("./routes/auth.routes");
+const resumeRouter = require("./routes/resume.routes");
+const interviewRouter = require("./routes/interviewReport.routes");
 
-/*using all the routes here */
+/* Mount Routes */
 app.use("/api/auth", authRouter);
+app.use("/api/resume", resumeRouter);
+app.use("/api/interview", interviewRouter);
+app.use("/api/ai", interviewRouter); // Convenient alias
 
 module.exports = app;

@@ -7,7 +7,8 @@ import {
     googleLogin as googleLoginApi,
     githubLogin as githubLoginApi,
     logout as logoutApi,
-    getMe as getMeApi
+    getMe as getMeApi,
+    updateProfile as updateProfileApi
 } from "./services/auth.api";
 import toast from "react-hot-toast";
 
@@ -163,6 +164,24 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateProfile = async (newUsername) => {
+        setAuthActionLoading(true);
+        try {
+            const data = await updateProfileApi({ username: newUsername });
+            if (data?.user) {
+                setUser(data.user);
+            }
+            toast.success(data?.message || "Profile updated successfully!");
+            return { success: true, user: data.user };
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || error?.message || "Failed to update profile";
+            toast.error(errorMessage);
+            return { success: false, error: errorMessage };
+        } finally {
+            setAuthActionLoading(false);
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -175,7 +194,8 @@ export const AuthProvider = ({ children }) => {
                 loginWithGoogle,
                 loginWithGithub,
                 logout,
-                getMe
+                getMe,
+                updateProfile
             }}
         >
             {children}

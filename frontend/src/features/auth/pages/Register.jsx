@@ -3,139 +3,90 @@ import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import "./auth.form.scss";
 
-// SVG Icons matching the cyan/teal registration mockup
-const LogoSquareIcon = ({ className }) => (
+// SVG Brand and UI Icons
+const BrandLogoIcon = ({ width = 38, height = 38, className = "" }) => (
   <svg
-    className={className}
-    viewBox="0 0 24 24"
+    width={width}
+    height={height}
+    viewBox="0 0 100 100"
     fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
   >
-    <rect width="18" height="18" x="3" y="3" rx="4" />
+    {/* Clean Flat Document Outline */}
+    <path
+      d="M22 76 V22 C22 16.5 26.5 12 32 12 H56 L80 36 V52"
+      stroke="currentColor"
+      strokeWidth="8.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Folded Corner Flap */}
+    <path
+      d="M56 12 V34 C56 35.1 56.9 36 58 36 H80"
+      stroke="currentColor"
+      strokeWidth="8.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M58 14 L78 34 H62 C59.8 34 58 32.2 58 30 Z"
+      fill="#0066FF"
+    />
+
+    {/* 3 Minimal Horizontal Resume Lines */}
+    <line x1="34" y1="40" x2="49" y2="40" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+    <line x1="34" y1="53" x2="58" y2="53" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+    <line x1="34" y1="66" x2="48" y2="66" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+
+    {/* Smooth Upward-Curving Swoosh (Vivid Bright Blue) */}
+    <path
+      d="M11 72 C10.5 83 25 91 50 88 C69 85 79 73 83 56 L75 58 C69 70 57 78 40 79 C22 80 13 76 11 72 Z"
+      fill="#0066FF"
+    />
+
+    {/* Sharp Upward Arrowhead */}
+    <path
+      d="M66 50 L89 40 L89 64 L78 56 Z"
+      fill="#0066FF"
+      stroke="#0066FF"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
-const DocumentUploadIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-    <polyline points="14 2 14 8 20 8" />
-    <line x1="12" y1="18" x2="12" y2="12" />
-    <polyline points="9 15 12 12 15 15" />
-  </svg>
-);
-
-const BarChartIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="18" y1="20" x2="18" y2="10" />
-    <line x1="12" y1="20" x2="12" y2="4" />
-    <line x1="6" y1="20" x2="6" y2="14" />
-  </svg>
-);
-
-const ShieldCheckIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    <path d="m9 12 2 2 4-4" />
-  </svg>
-);
-
-const UserIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+const UserIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
-const MailIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+const MailIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <rect width="20" height="16" x="2" y="4" rx="3" />
     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
 
-const LockIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+const LockIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
   </svg>
 );
 
-const EyeIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+const EyeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
     <circle cx="12" cy="12" r="3" />
   </svg>
 );
 
-const EyeOffIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+const EyeOffIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
     <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
     <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
@@ -143,23 +94,8 @@ const EyeOffIcon = ({ className }) => (
   </svg>
 );
 
-const ArrowRightIcon = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
-
-const GoogleIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" width="20" height="20">
+const GoogleIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20">
     <path
       fill="#4285F4"
       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -179,8 +115,8 @@ const GoogleIcon = ({ className }) => (
   </svg>
 );
 
-const GithubIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+const GithubIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -240,7 +176,6 @@ const Register = () => {
       return;
     }
 
-    // Call backend registration via useAuth hook
     const result = await register({
       username: formData.fullName,
       email: formData.email,
@@ -248,295 +183,188 @@ const Register = () => {
     });
 
     if (result.success) {
-      // Redirect to /login after successful registration
       navigate("/login");
     }
   };
 
   return (
     <div className="auth-page">
-      {/* Background Ambient Glows */}
-      <div className="bg-glow bg-glow-top-left" aria-hidden="true" />
-      <div className="bg-glow bg-glow-center-right" aria-hidden="true" />
-      <div className="bg-glow bg-glow-bottom-left" aria-hidden="true" />
-
-      {/* Decorative Bottom Cyan Wave Ribbons with Glowing Node Point */}
-      <svg
-        className="bg-waves"
-        viewBox="0 0 1000 450"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
+      {/* Background Decorative Soft Waves */}
+      <svg className="bg-waves" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M-50,420 C180,360 280,440 460,360 C640,280 720,380 1020,320"
-          stroke="url(#cyanGrad1)"
-          strokeWidth="2.5"
-          strokeOpacity="0.75"
+          d="M0,192L60,197.3C120,203,240,213,360,224C480,235,600,245,720,229.3C840,213,960,171,1080,165.3C1200,160,1320,192,1380,208L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          fill="#EDF5FF"
+          fillOpacity="0.8"
         />
         <path
-          d="M-80,450 C140,390 250,470 430,390 C610,310 690,410 990,350"
-          stroke="url(#cyanGrad2)"
-          strokeWidth="1.8"
-          strokeOpacity="0.55"
+          d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,266.7C840,277,960,267,1080,250.7C1200,235,1320,213,1380,202.7L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          fill="#E0EDFF"
+          fillOpacity="0.6"
         />
-        <path
-          d="M-30,480 C190,420 300,500 480,420 C660,340 740,440 1040,380"
-          stroke="url(#cyanGrad3)"
-          strokeWidth="1.2"
-          strokeOpacity="0.35"
-        />
-        <circle cx="305" cy="395" r="3.5" fill="#22d3ee" filter="url(#glowFilterRegister)" />
-
-        <defs>
-          <filter id="glowFilterRegister" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#22d3ee" floodOpacity="0.9" />
-          </filter>
-          <linearGradient id="cyanGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0891b2" stopOpacity="0.8" />
-            <stop offset="45%" stopColor="#06b6d4" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.1" />
-          </linearGradient>
-          <linearGradient id="cyanGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0e7490" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#0891b2" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="cyanGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#155e75" stopOpacity="0.5" />
-            <stop offset="60%" stopColor="#06b6d4" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
-          </linearGradient>
-        </defs>
       </svg>
 
-      <div className="auth-container">
-        {/* Left Column: Hero & Feature Showcase */}
-        <section className="auth-hero">
-          <Link to="/" className="brand-logo" aria-label="GenResume Home">
-            <div className="logo-icon-wrapper">
-              <LogoSquareIcon />
+      <div className="auth-card-wrapper">
+        <div className="auth-card">
+          {/* Brand Header */}
+          <div className="auth-brand-center">
+            <div className="brand-logo-icon">
+              <BrandLogoIcon width={36} height={36} />
             </div>
-            <span className="brand-name">GenResume</span>
-          </Link>
-
-          <div className="hero-tag-row">
-            <span className="hero-tag">START YOUR JOURNEY</span>
-            <span className="hero-tag-line" aria-hidden="true" />
+            <span className="brand-name-text">
+              <span className="brand-hire">Hire</span>
+              <span className="brand-path">Path</span>
+            </span>
           </div>
 
-          <h1 className="hero-title">
-            A smarter <br />
-            career starts <br />
-            <span className="gradient-here">here.</span>
-          </h1>
-
-          <p className="hero-description">
-            Create your account and get personalized resume insights to stand out and land your dream role.
-          </p>
-
-          <div className="hero-features-wrapper">
-            {/* Feature 1 */}
-            <div className="feature-card">
-              <div className="feature-icon-box">
-                <DocumentUploadIcon />
-              </div>
-              <div className="feature-content">
-                <h3 className="feature-title">Upload & Analyze</h3>
-                <p className="feature-text">Get instant AI feedback</p>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="feature-card">
-              <div className="feature-icon-box">
-                <BarChartIcon />
-              </div>
-              <div className="feature-content">
-                <h3 className="feature-title">Improve Faster</h3>
-                <p className="feature-text">Actionable suggestions</p>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="feature-card">
-              <div className="feature-icon-box">
-                <ShieldCheckIcon />
-              </div>
-              <div className="feature-content">
-                <h3 className="feature-title">Your Data, Your Control</h3>
-                <p className="feature-text">We keep your information safe</p>
-              </div>
-            </div>
+          <div className="card-header">
+            <h1 className="card-title">Create Account</h1>
+            <p className="card-subtitle">Sign up to start your career journey</p>
           </div>
-        </section>
 
-        {/* Right Column: Glassmorphic Registration Card */}
-        <section className="auth-card-wrapper">
-          <div className="auth-card">
-            <div className="card-header">
-              <h2 className="card-title">Create your account</h2>
-              <p className="card-subtitle">
-                Join GenResume and take the next step towards a brighter career!
-              </p>
+          <form className="auth-form" onSubmit={handleSubmit} noValidate>
+            {/* Full Name Field */}
+            <div className="form-group">
+              <label htmlFor="fullName" className="form-label">
+                Full name
+              </label>
+              <div className={`input-wrapper ${errors.fullName ? "has-error" : ""}`}>
+                <span className="input-icon-left" aria-hidden="true">
+                  <UserIcon />
+                </span>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  className="form-input"
+                  placeholder="Full name"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  autoComplete="name"
+                  disabled={authActionLoading}
+                  required
+                />
+              </div>
+              {errors.fullName && <span className="error-message">{errors.fullName}</span>}
             </div>
 
-            <form className="auth-form" onSubmit={handleSubmit} noValidate>
-              {/* Full Name Field */}
-              <div className="form-group">
-                <label htmlFor="fullName" className="form-label">
-                  Full name
-                </label>
-                <div className={`input-wrapper ${errors.fullName ? "has-error" : ""}`}>
-                  <span className="input-icon-left" aria-hidden="true">
-                    <UserIcon />
-                  </span>
-                  <input
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                    className="form-input"
-                    placeholder="Enter your full name"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    autoComplete="name"
-                    disabled={authActionLoading}
-                    required
-                  />
-                </div>
-                {errors.fullName && <span className="error-message">{errors.fullName}</span>}
+            {/* Email Field */}
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
+              <div className={`input-wrapper ${errors.email ? "has-error" : ""}`}>
+                <span className="input-icon-left" aria-hidden="true">
+                  <MailIcon />
+                </span>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className="form-input"
+                  placeholder="Email address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  disabled={authActionLoading}
+                  required
+                />
               </div>
+              {errors.email && <span className="error-message">{errors.email}</span>}
+            </div>
 
-              {/* Email Field */}
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">
-                  Email address
-                </label>
-                <div className={`input-wrapper ${errors.email ? "has-error" : ""}`}>
-                  <span className="input-icon-left" aria-hidden="true">
-                    <MailIcon />
-                  </span>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    className="form-input"
-                    placeholder="you@example.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                    autoComplete="email"
-                    disabled={authActionLoading}
-                    required
-                  />
-                </div>
-                {errors.email && <span className="error-message">{errors.email}</span>}
+            {/* Password Field */}
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <div className={`input-wrapper ${errors.password ? "has-error" : ""}`}>
+                <span className="input-icon-left" aria-hidden="true">
+                  <LockIcon />
+                </span>
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  className="form-input"
+                  placeholder="Password (min 8 characters)"
+                  value={formData.password}
+                  onChange={handleChange}
+                  autoComplete="new-password"
+                  disabled={authActionLoading}
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  disabled={authActionLoading}
+                >
+                  {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
               </div>
+              {errors.password && <span className="error-message">{errors.password}</span>}
+            </div>
 
-              {/* Password Field */}
-              <div className="form-group">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <div className={`input-wrapper ${errors.password ? "has-error" : ""}`}>
-                  <span className="input-icon-left" aria-hidden="true">
-                    <LockIcon />
-                  </span>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    className="form-input"
-                    placeholder="Create a password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    autoComplete="new-password"
-                    disabled={authActionLoading}
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="toggle-password-btn"
-                    onClick={() => setShowPassword(!showPassword)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    disabled={authActionLoading}
-                  >
-                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
-                  </button>
-                </div>
-                {errors.password ? (
-                  <span className="error-message">{errors.password}</span>
-                ) : (
-                  <span className="form-helper-text">
-                    Use at least 8 characters with a number and a symbol.
-                  </span>
-                )}
-              </div>
+            {/* Submit Button */}
+            <button type="submit" className="btn-submit" disabled={authActionLoading}>
+              {authActionLoading ? (
+                <>
+                  <div className="btn-spinner" aria-hidden="true" />
+                  <span>Creating account...</span>
+                </>
+              ) : (
+                <span>Create account</span>
+              )}
+            </button>
 
-              {/* Submit Button */}
-              <button type="submit" className="btn-submit" disabled={authActionLoading}>
-                {authActionLoading ? (
-                  <>
-                    <div className="btn-spinner" aria-hidden="true" />
-                    <span>Creating account...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Create account</span>
-                    <ArrowRightIcon className="btn-arrow-icon" />
-                  </>
-                )}
+            {/* Divider */}
+            <div className="auth-divider">
+              <span>or</span>
+            </div>
+
+            {/* Social Sign-up Buttons */}
+            <div className="social-buttons-container">
+              <button
+                type="button"
+                className="btn-social"
+                onClick={async () => {
+                  const result = await loginWithGoogle();
+                  if (result.success) {
+                    navigate("/");
+                  }
+                }}
+                disabled={authActionLoading}
+              >
+                <GoogleIcon />
+                <span>Continue with Google</span>
               </button>
 
-              {/* Divider */}
-              <div className="auth-divider">
-                <span>or continue with</span>
-              </div>
+              <button
+                type="button"
+                className="btn-social"
+                onClick={async () => {
+                  const result = await loginWithGithub();
+                  if (result.success) {
+                    navigate("/");
+                  }
+                }}
+                disabled={authActionLoading}
+              >
+                <GithubIcon />
+                <span>Continue with GitHub</span>
+              </button>
+            </div>
 
-              {/* Social Login Buttons Container */}
-              <div className="social-buttons-container">
-                {/* Google Sign-up Button */}
-                <button
-                  type="button"
-                  className="btn-google"
-                  onClick={async () => {
-                    const result = await loginWithGoogle();
-                    if (result.success) {
-                      navigate("/");
-                    }
-                  }}
-                  disabled={authActionLoading}
-                >
-                  <GoogleIcon className="google-icon" />
-                  <span>Google</span>
-                </button>
-
-                {/* GitHub Sign-up Button */}
-                <button
-                  type="button"
-                  className="btn-github"
-                  onClick={async () => {
-                    const result = await loginWithGithub();
-                    if (result.success) {
-                      navigate("/");
-                    }
-                  }}
-                  disabled={authActionLoading}
-                >
-                  <GithubIcon className="github-icon" />
-                  <span>GitHub</span>
-                </button>
-              </div>
-
-              {/* Footer */}
-              <div className="auth-footer">
-                <span>Already have an account?</span>
-                <Link to="/login" className="create-account-link">
-                  Sign in
-                </Link>
-              </div>
-            </form>
-          </div>
-        </section>
+            {/* Footer */}
+            <div className="auth-footer">
+              <span>Already have an account?</span>
+              <Link to="/login" className="create-account-link">
+                Sign in
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
