@@ -1,10 +1,17 @@
 const express = require("express");
-const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+const app = express();
+
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],
+    origin: allowedOrigins,
     credentials: true
 }));
 
@@ -21,6 +28,6 @@ const interviewRouter = require("./routes/interviewReport.routes");
 app.use("/api/auth", authRouter);
 app.use("/api/resume", resumeRouter);
 app.use("/api/interview", interviewRouter);
-app.use("/api/ai", interviewRouter); // Convenient alias
+app.use("/api/ai", interviewRouter);
 
 module.exports = app;
