@@ -153,6 +153,10 @@ const AnalyzeResume = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
+  const progressPercent = Math.round(
+    ((activeStepIndex + 1) / processingSteps.length) * 100
+  );
+
   const handleFileSelection = (selectedFile) => {
     if (!selectedFile) return;
 
