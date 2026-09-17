@@ -3,7 +3,8 @@ const interviewRouter = express.Router();
 const {
     generateReportController,
     getReportByIdController,
-    getUserReportsController
+    getUserReportsController,
+    deleteReportController
 } = require("../controller/interviewReport.controller");
 const { authUser, optionalAuth } = require("../midlleware/auth.middleware");
 const uploadResume = require("../midlleware/upload.middleware");
@@ -31,5 +32,11 @@ interviewRouter.get("/history", authUser, getUserReportsController);
  * @description Fetch a specific report by ID
  */
 interviewRouter.get("/:id", getReportByIdController);
+
+/**
+ * @route DELETE /api/interview/:id
+ * @description Delete a specific report by ID (authenticated)
+ */
+interviewRouter.delete("/:id", authUser, deleteReportController);
 
 module.exports = interviewRouter;

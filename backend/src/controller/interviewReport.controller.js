@@ -149,14 +149,45 @@ async function getUserReportsController(req, res) {
             .find({ user: req.user.id })
             .sort({ createdAt: -1 });
 
+/**
+ * @route DELETE /api/interview/:id
+ * @description Delete a specific report by ID
+ * @access private
+ */
+async function deleteReportController(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!req.user?.id) {
+            return res.status(401).json({
+                message: "Unauthorized. Please log in."
+            });
+        }
+
+        const report = await interviewReportModel.findById(id);
+
+        if (!report) {
+            return res.status(404).json({
+                message: "Interview report not found"
+            });
+        }
+
+        // Ensure the report belongs to the requesting user
+        if (report.user && report.user.toString() !== req.user.id.toString()) {
+            return res.status(403).json({
+                message: "You are not authorized to delete this report"
+            });
+        }
+
+        await interviewReportModel.findByIdAndDelete(id);
+
         return res.status(200).json({
-            message: "User reports fetched successfully",
-            reports
+            message: "Report deleted successfully"
         });
     } catch (error) {
-        console.error("Get User Reports Error:", error);
+        console.error("Delete Report Error:", error);
         return res.status(500).json({
-            message: "Failed to fetch user reports",
+            message: "Failed to delete interview report",
             error: error.message
         });
     }
@@ -165,5 +196,6 @@ async function getUserReportsController(req, res) {
 module.exports = {
     generateReportController,
     getReportByIdController,
-    getUserReportsController
+    getUserReportsController,
+    deleteReportController
 };

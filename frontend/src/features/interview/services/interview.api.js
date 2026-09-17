@@ -29,3 +29,12 @@ export async function getUserReportsApi() {
     const response = await api.get("/api/interview/user/history");
     return response.data;
 }
+
+/**
+ * Delete a specific interview report by its MongoDB ID
+ * @param {string} id
+ */
+export async function deleteReportApi(id) {
+    const response = await api.delete(`/api/interview/${id}`);
+    return response.data;
+}
