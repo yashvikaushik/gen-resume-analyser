@@ -354,6 +354,32 @@
               color: #FFFFFF;
             }
           }
+
+          .btn-delete-report-dash {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid var(--border-color, #DCE8F5);
+            color: var(--text-muted, #94A3B8);
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover:not(:disabled) {
+              background: var(--danger-light, #FEE2E2);
+              border-color: rgba(239, 68, 68, 0.4);
+              color: var(--danger, #EF4444);
+              transform: translateY(-1px);
+            }
+
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+          }
         }
       }
 

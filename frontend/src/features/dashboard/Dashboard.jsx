@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../auth/hooks/useAuth";
-import { getUserReportsApi } from "../interview/services/interview.api";
+import { getUserReportsApi, deleteReportApi } from "../interview/services/interview.api";
+import toast from "react-hot-toast";
 import "./Dashboard.scss";
 
 // SVG Icons with explicit width & height
+const TrashIcon = ({ width = 15, height = 15 }) => (
+  <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 6h18" />
+    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    <line x1="10" x2="10" y1="11" y2="17" />
+    <line x1="14" x2="14" y1="11" y2="17" />
+  </svg>
+);
+
 const DocumentIcon = ({ width = 20, height = 20 }) => (
   <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -139,6 +150,7 @@ const Dashboard = () => {
   const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -155,6 +167,27 @@ const Dashboard = () => {
     };
     fetchReports();
   }, []);
+
+  const handleDeleteReport = async (id, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!window.confirm("Are you sure you want to delete this interview report? This action cannot be undone.")) {
+      return;
+    }
+
+    setDeletingId(id);
+    try {
+      await deleteReportApi(id);
+      setReports((prev) => prev.filter((r) => r._id !== id));
+      toast.success("Report deleted successfully");
+    } catch (err) {
+      console.error("Failed to delete report:", err);
+      toast.error(err.response?.data?.message || "Failed to delete report");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   const displayName = user?.username || user?.name || "Candidate";
 
@@ -287,6 +320,16 @@ const Dashboard = () => {
                     <Link to={`/report/${rep._id}`} className="btn-view-report">
                       View
                     </Link>
+                    <button
+                      type="button"
+                      className="btn-delete-report-dash"
+                      onClick={(e) => handleDeleteReport(rep._id, e)}
+                      disabled={deletingId === rep._id}
+                      title="Delete Report"
+                      aria-label="Delete Report"
+                    >
+                      <TrashIcon />
+                    </button>
                   </div>
                 </div>
               );
