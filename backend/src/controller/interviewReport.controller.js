@@ -149,6 +149,19 @@ async function getUserReportsController(req, res) {
             .find({ user: req.user.id })
             .sort({ createdAt: -1 });
 
+        return res.status(200).json({
+            message: "User reports fetched successfully",
+            reports
+        });
+    } catch (error) {
+        console.error("Get User Reports Error:", error);
+        return res.status(500).json({
+            message: "Failed to fetch user reports",
+            error: error.message
+        });
+    }
+}
+
 /**
  * @route DELETE /api/interview/:id
  * @description Delete a specific report by ID
